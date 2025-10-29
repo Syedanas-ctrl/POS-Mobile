@@ -1,14 +1,15 @@
 import { useThemeColor } from "@/hooks/use-theme-color";
 import * as Print from "expo-print";
 import { useEffect, useRef, useState } from "react";
-import { Alert, BackHandler, Platform } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Alert, BackHandler, Platform, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { WebView } from "react-native-webview";
 
 export default function HomeScreen() {
   const webViewRef = useRef<WebView | null>(null);
   const [canGoBack, setCanGoBack] = useState(false);
   const backgroundColor = useThemeColor({}, "background");
+  const insets = useSafeAreaInsets();
 
   // Handle Android back button
   useEffect(() => {
@@ -85,8 +86,12 @@ export default function HomeScreen() {
     );
   }
 
+  // Apply top padding only on Android to prevent content from going under status bar
+  // On iOS, WebView handles safe areas automatically, so we don't add extra padding
+  const paddingTop = Platform.OS === "android" ? insets.top : 0;
+
   return (
-    <SafeAreaView style={{ flex: 1, paddingTop: 8, backgroundColor }} edges={["top"]}>
+    <View style={{ flex: 1, paddingTop, backgroundColor }}>
       <WebView
         ref={webViewRef}
         source={{ uri: "https://zaterp.com/login" }}
@@ -96,6 +101,6 @@ export default function HomeScreen() {
         style={{ flex: 1, backgroundColor }}
         containerStyle={{ backgroundColor }}
       />
-    </SafeAreaView>
+    </View>
   );
 }
