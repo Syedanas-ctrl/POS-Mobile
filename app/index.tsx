@@ -57,7 +57,7 @@ export default function HomeScreen() {
       // Non-JSON message; ignore
     }
 
-    if (event.nativeEvent.data === "print") {
+    if (event.nativeEvent?.data === "print") {
       await Print.printAsync({ html: "<h1>No HTML captured from page.</h1>" });
     }
   };
