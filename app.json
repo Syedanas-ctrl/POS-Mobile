@@ -12,7 +12,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.faiqh.zatapp",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSPhotoLibraryUsageDescription": "Allow ZAT ERP to access your photos so you can upload images.",
+        "NSCameraUsageDescription": "Allow ZAT ERP to use your camera."
       }
     },
     "android": {
